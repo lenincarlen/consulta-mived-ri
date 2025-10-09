@@ -42,15 +42,37 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-            RateLimiter::hit($this->throttleKey());
+        try {
+            // Attempt LDAP authentication
+            if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+                RateLimiter::hit($this->throttleKey());
 
+                throw ValidationException::withMessages([
+                    'email' => trans('auth.failed'),
+                ]);
+            }
+
+            RateLimiter::clear($this->throttleKey());
+            
+        } catch (\LdapRecord\Auth\BindException $e) {
+            RateLimiter::hit($this->throttleKey());
+            
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'email' => 'Las credenciales proporcionadas no coinciden con nuestros registros o el servidor LDAP no está disponible.',
+            ]);
+        } catch (\LdapRecord\Query\ObjectNotFoundException $e) {
+            RateLimiter::hit($this->throttleKey());
+            
+            throw ValidationException::withMessages([
+                'email' => 'Usuario no encontrado en el directorio activo.',
+            ]);
+        } catch (\Exception $e) {
+            RateLimiter::hit($this->throttleKey());
+            
+            throw ValidationException::withMessages([
+                'email' => 'Error de autenticación. Por favor, inténtelo de nuevo.',
             ]);
         }
-
-        RateLimiter::clear($this->throttleKey());
     }
 
     /**

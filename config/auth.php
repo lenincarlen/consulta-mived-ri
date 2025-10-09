@@ -62,10 +62,9 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'ldap',
-            'model' => App\Ldap\User::class,
+            'model' => LdapRecord\Models\ActiveDirectory\User::class,
             'rules' => [
-                // Only import users from these groups
-                // LdapRecord\Laravel\Auth\Rule::in('administrators'),
+                App\Ldap\Rules\OnlyHelpDeskUsers::class,
             ],
             'database' => [
                 'model' => App\Models\User::class,
@@ -90,6 +89,8 @@ return [
                     'title' => 'title',
                     'phone' => 'telephonenumber',
                 ],
+                'create_users' => true,
+                'trash_model' => null,
             ],
         ],
 

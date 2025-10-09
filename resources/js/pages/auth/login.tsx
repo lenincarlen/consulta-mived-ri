@@ -13,7 +13,7 @@ import AuthLayout from '@/layouts/auth-layout';
 type LoginForm = {
     email: string;
     password: string;
-     
+
 };
 
 interface LoginProps {
@@ -25,7 +25,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
     const { data, setData, post, processing, errors, reset } = useForm<Required<LoginForm>>({
         email: '',
         password: '',
-      
+
     });
 
     const submit: FormEventHandler = (e) => {
@@ -39,7 +39,10 @@ export default function Login({ status, canResetPassword }: LoginProps) {
     };
 
     return (
-        <AuthLayout>
+        <AuthLayout
+            title="Iniciar sesión"
+            description="Accede a tu cuenta para continuar"
+        >
             <Head title="Iniciar sesión" />
 
             <form className="flex flex-col gap-6" onSubmit={submit}>
@@ -82,7 +85,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                         <InputError message={errors.password} />
                     </div>
 
-                  
+
 
                     <Button type="submit" className="mt-4 w-full" tabIndex={4} disabled={processing}>
                         {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
@@ -90,7 +93,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                     </Button>
                 </div>
 
-               
+
             </form>
 
             {status && <div className="mb-4 text-center text-sm font-medium text-green-600">{status}</div>}
