@@ -185,11 +185,11 @@ const ConsultaPage = ({ user }: { user: { name: string } }) => {
     { label: "Manzana", value: item.manzana },
     { label: "Porción", value: item.porcion },
     { label: "Distrito Catastral", value: item.distritoCatastral },
-    { label: "Código Unidad Funcional", value: item.codigoUnidadFuncional },
+    { label: "Unidad Funcional", value: item.codigoUnidadFuncional },
     { label: "Nombre Condominio", value: item.nombreCondominio },
     { label: "Municipio", value: item.municipio },
     { label: "Provincia", value: item.provincia },
-    { label: "Oficina Registral", value: item.oficinaRegistral },
+    { label: "Oficina de Registro", value: item.oficinaRegistral },
   ].map((field, idx) => (
     <div
       key={idx}
