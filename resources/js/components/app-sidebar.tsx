@@ -52,11 +52,7 @@ const mainNavItems: NavItem[] = [
     //     href: '/consulta/ParcelaDC',
     //     icon: MapPinned,
     // },
-      {
-        title: 'Usuarios',
-        href: '/dashboard',
-        icon: User2,
-    },
+ 
 
     
 ];
@@ -64,12 +60,12 @@ const mainNavItems: NavItem[] = [
 const footerNavItems: NavItem[] = [
     {
         title: 'Mesa de ayuda',
-        href: '/',
+        href: ' /',
         icon: Headphones
     },
     {
         title: 'SAP',
-        href: '/',
+        href: '/ ',
         icon: BookOpen,
     },
 ];
@@ -92,8 +88,8 @@ export function AppSidebar({ history = [], onHistoryClick, onNewSearch }: AppSid
             <SidebarContent>
                 <NavMain items={mainNavItems} />
                
-                <div className="mt-4">
-                    <p className="text-xs text-gray-500 px-2">Historial de Consultas</p>
+                {/* <div className="mt-4">
+                   <p className="text-xs text-gray-500 px-2">Historial de Consultas</p>
                     <SidebarMenu>
                         {history.map((item, index) => (
                             <SidebarMenuItem key={index}>
@@ -108,9 +104,9 @@ export function AppSidebar({ history = [], onHistoryClick, onNewSearch }: AppSid
                             </SidebarMenuItem>
                         ))}
                     </SidebarMenu>
-                </div>
+                </div> */}
             </SidebarContent>
-
+ 
             <SidebarFooter>
                 <NavFooter items={footerNavItems} className="mt-auto" />
                 <NavUser />
